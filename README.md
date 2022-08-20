@@ -1,1 +1,2 @@
-# airvertise-frontend-2
+yarn compile
+yarn start
