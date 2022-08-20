@@ -4,10 +4,6 @@ const connectWallet = () => {
   console.log("Connect");
 }
 
-const sendData = () => {
-  console.log("")
-}
-
 function App() {
 
   const [datos, setDatos] = useState({
@@ -25,12 +21,18 @@ function App() {
 
   const sendData = (event) => {
       event.preventDefault();
-      console.log(datos.address)
-      console.log(datos.target)
-      console.log(datos.fee)
+      console.log(datos.address);
+      console.log(datos.target);
+      console.log(datos.fee);
+      let targetAccounts = retrieveAddressesFromContract(datos.address);
+      console.log(targetAccounts);
       
   }
   
+  const retrieveAddressesFromContract = (address) => {
+    return ["0xAB", "0xBB"]
+  }
+
   return (
     <div className="container">
       <div className="row py-4">
@@ -53,7 +55,7 @@ function App() {
               <p><label>Scope</label></p>
               <p><input type="text" name="target" placeholder="Finance" onChange={handleInputChange}/></p>
               <p><label>Fee</label></p>
-              <p><input type="number" name="fee" placeholder="0.002" onChange={handleInputChange}/></p>
+              <p><input type="number" step="0.0001" name="fee" placeholder="0.002" onChange={handleInputChange}/></p>
               <button type="submit" >Send</button>
             </form>
           </div>
