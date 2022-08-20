@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from "react";
+import FileUpload from "./components/FileUpload";
+import "./components/styles/main.css"
 
 const connectWallet = () => {
   console.log("Connect");
@@ -37,6 +39,13 @@ function App() {
     const fileInput = document.querySelector('input[type="file"]')
     return fileInput.files
   }
+
+  // async function storeFiles (files) {
+  //   const client = makeStorageClient()
+  //   const cid = await client.put(files)
+  //   console.log('stored files with cid:', cid)
+  //   return cid
+  // }
   
   const retrieveAddressesFromContract = (address) => {
     return ["0xAB", "0xBB"]
@@ -69,7 +78,8 @@ function App() {
             </div>
             <div className="col-md-6">
               <div className="container">
-                <input type="file" name="nft" class="form-control-file" onChange={handleInputChange}></input>
+                {/* <input type="file" name="nft" class="form-control-file" onChange={handleInputChange}></input> */}
+                <FileUpload />
               </div>
             </div>
           </div>
