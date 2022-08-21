@@ -1,4 +1,28 @@
 body {
-    background-color: #103a5a;
-    color: white;
+    background-color: #0E0B16;
+    color: #E7DFDD;
+    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+.btn {
+    background-image: linear-gradient(#A239CA, #4717F6);
+    color: #E7DFDD;
+}
+
+.btn:hover {
+    background-position: right center; /* change the direction of the change here */
+}
+  
+.btn-1 {
+    background-image: linear-gradient(to right, #A239CA 0%, #4717F6 51%, #A239CA 100%);
+}
+
+.visualize {
+    width: 100%;
+    height: auto;
 }
