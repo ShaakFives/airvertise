@@ -58,7 +58,7 @@ function App() {
       console.log(image);
       let contentId= storeFiles(image);
 
-      launchMarketingCampaign(campaignData.quantity, targetAccounts, campaignData.campaignName, contentId, fee);
+      launchMarketingCampaign(campaignData.quantity, targetAccounts, campaignData.campaignName, contentId, campaignData.fee);
 
   }
   
@@ -155,7 +155,7 @@ function App() {
 
     // Once we have the metadata, get the metadata[1] (the tokenUri/ IPFS token id)
 
-    renderMarketingFlyer(retrieveFile(metadata[1]), metadata, tokenId);
+    // renderMarketingFlyer(retrieveFile(metadata[1]), metadata, tokenId);
 
 
   }
