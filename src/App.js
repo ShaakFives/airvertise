@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from "react";
+import FileUpload from "./components/FileUpload";
+import "./components/styles/main.css"
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 import { WorldIDWidget } from "@worldcoin/id";
 
@@ -18,6 +20,27 @@ function makeStorageClient () {
   return new Web3Storage({ token: getAccessToken() })
 }
 const client = makeStorageClient()
+
+import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
+import { WorldIDWidget } from "@worldcoin/id";
+
+function getAccessToken () {
+  // If you're just testing, you can paste in a token
+  // and uncomment the following line:
+  // return 'paste-your-token-here'
+
+  // In a real app, it's better to read an access token from an
+  // environement variable or other configuration that's kept outside of
+  // your code base. For this to work, you need to set the
+  // WEB3STORAGE_TOKEN environment variable before you run your code.
+  return process.env.REACT_APP_WEB3STORAGE_TOKEN
+}
+
+function makeStorageClient () { 
+  return new Web3Storage({ token: getAccessToken() })
+}
+const client = makeStorageClient()
+
 
 const connectWallet = () => {
   console.log("Connect");
@@ -159,7 +182,8 @@ function App() {
             </div>
             <div className="col-md-6">
               <div className="container">
-                <input type="file" name="nft" class="form-control-file" onChange={handleInputChange}></input>
+                {/* <input type="file" name="nft" class="form-control-file" onChange={handleInputChange}></input> */}
+                <FileUpload />
               </div>
             </div>
           </div>
