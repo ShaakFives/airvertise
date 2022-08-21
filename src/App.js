@@ -3,6 +3,7 @@ import FileUpload from "./components/FileUpload";
 import "./components/styles/main.css"
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 import { WorldIDWidget } from "@worldcoin/id";
+import { createClient } from 'urql'
 
 function getAccessToken () {
   // If you're just testing, you can paste in a token
@@ -62,8 +63,55 @@ function App() {
   }
   
   const retrieveAddressesFromContract = (address) => {
-    return ["0xAB", "0xBB"]
+    const query = `
+    query GetRelatedAddresses($cuenta) {
+      collections(where: {id: $cuenta}) {
+        transfers {
+          from {
+            id
+          }
+        }
+      }
+    }
+      `
+    address = fetchData(query, address)
+    console.log(address)
+    return address
   }
+
+  const graphClient = createClient({
+    url: "https://api.thegraph.com/subgraphs/name/messari/erc721-holders"
+  })
+
+  async function fetchData(query, address) {
+    const response = await graphClient.query(query, { cuenta: address }).toPromise();
+
+    if (response.data.collections.length >=1) {
+      const addresses_ = []
+      for (var i in response.data.collections[0].transfers) {
+          addresses_.push(response.data.collections[0].transfers[i].from.id)
+      }
+    const addresses = remove_duplicates(addresses_)
+    return addresses
+    } else {
+      console.log("No addresses found")
+      return []
+    }
+
+  }
+
+  function remove_duplicates(arr) {
+    var obj = {};
+    var ret_arr = [];
+    for (var i = 0; i < arr.length; i++) {
+        obj[arr[i]] = true;
+    }
+    for (var key in obj) {
+        ret_arr.push(key);
+    }
+    return ret_arr;
+  }
+
 
   function getFiles () {
     const fileInput = document.querySelector('input[type="file"]')
