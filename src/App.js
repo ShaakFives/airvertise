@@ -4,6 +4,8 @@ import "./components/styles/main.css"
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 import { WorldIDWidget } from "@worldcoin/id";
 import { createClient } from 'urql'
+import { handleConnectWallet } from './walletUtilities';
+import Advertise from './artifacts/contracts/Advertise.json';
 
 function getAccessToken () {
   // If you're just testing, you can paste in a token
@@ -29,6 +31,10 @@ const connectWallet = () => {
 
 function App() {
 
+  const [account, setAccount] = useState(undefined);
+  const [web3modal, setWeb3modal] = useState();
+  const [provider, setProvider] = useState();
+  
   // Form
   const [campaignData, setDatos] = useState({
     address: '',
@@ -188,9 +194,32 @@ function App() {
           <h1 className="text-right">AIRVERTISE</h1>
         </div>
         <div className='col-4 text-center'>
-          <button className=" btn btn-primary" onClick={connectWallet}>
+          
+        {
+              account?
+              <>
+              <button onClick={
+                async ()=>{
+                  await web3modal.clearCachedProvider();
+                  setAccount(undefined);
+                  setProvider();}
+                }>Disconnect</button>
+              </>:
+              <>
+              <button onClick={
+                () => {
+                  handleConnectWallet({
+                    setAccount,
+                    setWeb3modal,
+                    setProvider
+                  })
+                  }
+              } >Connect</button>
+              </>
+            }
+            {/* <button className=" btn btn-primary" onClick={connectWallet}>
             WalletConnect
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="container">
