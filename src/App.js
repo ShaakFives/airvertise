@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
+import { WorldIDWidget } from "@worldcoin/id";
 
 function getAccessToken () {
   // If you're just testing, you can paste in a token
@@ -113,6 +114,17 @@ function App() {
     // render image and create button to redeem airdrop
 
     // once user cliked on redeem button, execute the following function from the Advertise.sol contract
+    // Also, obtain the verificationResponse (see below) to obtain some parameters below
+    /*
+      {
+        "merkle_root": "0x1f38b57f3bdf96f05ea62fa68814871bf0ca8ce4dbe073d8497d5a6b0a53e5e0",
+        "nullifier_hash": "0x0339861e70a9bdb6b01a88c7534a3332db915d3d06511b79a5724221a6958fbe",
+        "action_id": "wid_staging_fMY8wNIw2AKLjcb7tVyI",
+        "signal": "your_signal_here",
+        "proof": "0x063942fd7ea1616f17787d2e3374c1826ebcd2d41d2394d915098c73482fa59516145cee11d59158b4012a463f487725cb3331bf90a0472e17385832eeaec7a713164055fc43cc0f873d76752de0e35cc653346ec42232649d40f5b8ded28f202793c4e8d096493dc34b02ce4252785df207c2b76673924502ab56b7e844baf621025148173fc74682213753493e8c90e5c224fc43786fcd09b624115bee824618e57bd28caa301f6b21606e7dce789090de053e641bce2ce0999b64cdfdfb0a0734413914c21e4e858bf38085310d47cd4cc6570ed634faa2246728ad64c49f1f720a39530d82e1fae1532bd7ad389978b6f337fcd6fa6381869637596e63a1"
+      }
+    */
+
     // function claimAirdrop(address input, uint256 root, uint256 nullifierHash, uint256[8] calldata proof, uint256 _tokenId)
 
 
@@ -153,7 +165,19 @@ function App() {
           </div>
         </form>
       </div>
+      <div>
+      // Mount the component in your code at the place where you want to render the widget
+      <WorldIDWidget
+        actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+        signal="my_signal"
+        enableTelemetry
+        onSuccess={(verificationResponse) => console.log(verificationResponse)} // you'll actually want to pass the proof to the API or your smart contract
+        onError={(error) => console.error(error)}
+      />;
+      </div>
     </div>
+
+    
   );
 }
 
